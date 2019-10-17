@@ -6,13 +6,9 @@ import ru.sbrf.ku.java.generics.bounds.entries.Cat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sergey
- * created on 23.11.18.
- */
 public class GenericsInheritance {
 
-    public static void main(String[] args) {
+    public static void main( String[] args ) {
 
         Animal cat = new Cat();
 

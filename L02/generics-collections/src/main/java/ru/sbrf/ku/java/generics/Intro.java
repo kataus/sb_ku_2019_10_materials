@@ -4,31 +4,27 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sergey
- * created on 23.11.18.
- */
 public class Intro {
 
-    public static void main(String[] args) {
-         new Intro().beforGenerics();
-         new Intro().generics();
+    public static void main( String[] args ) {
+        new Intro().beforGenerics();
+        new Intro().generics();
     }
 
     //До Generics
     private void beforGenerics() {
         List list = new ArrayList();
-        list.add(4.0);
-        list.add(4L);
-        list.add("Hello");
-        list.add(LocalTime.now());
+        list.add( 4.0 );
+        list.add( 4L );
+        list.add( "Hello" );
+        list.add( LocalTime.now() );
 
-        printRow(list);
+        printRow( list );
     }
 
-    private void printRow(List list) {
-        for(Object item: list) { //Object !!!
-            System.out.println(item);
+    private void printRow( List list ) {
+        for ( Object item : list ) { //Object !!!
+            System.out.println( item );
         }
     }
 
@@ -40,26 +36,26 @@ public class Intro {
         //list.add("Hello"); //ошибка компиляции
         //list.add(LocalTime.now()); //ошибка компиляции
 
-        list.add(2);
-        list.add(3);
+        list.add( 2 );
+        list.add( 3 );
 
-        summInt(list);
+        summInt( list );
 
-        print(list);
+        print( list );
     }
 
-    private void summInt(List<Integer> list) {
+    private void summInt( List<Integer> list ) {
         int summ = 0;
-        for(int val: list) {  //конкретный тип
+        for ( int val : list ) {  //конкретный тип
             summ += val;
         }
-        System.out.println("\nsumma:" + summ);
+        System.out.println( "\nsumma:" + summ );
     }
 
-    private <T> void print(List<T> list) {
-        System.out.println("");
-        for(T item: list) {
-            System.out.println(item);
+    private <T> void print( List<T> list ) {
+        System.out.println( "" );
+        for ( T item : list ) {
+            System.out.println( item );
         }
     }
 

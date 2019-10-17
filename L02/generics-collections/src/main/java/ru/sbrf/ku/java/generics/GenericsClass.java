@@ -3,10 +3,6 @@ package ru.sbrf.ku.java.generics;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author sergey
- * created on 23.11.18.
- */
 public class GenericsClass<K, V> {
 
     private final Map<K, V> map = new HashMap<>();

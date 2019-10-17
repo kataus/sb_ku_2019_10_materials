@@ -6,10 +6,6 @@ import ru.sbrf.ku.java.generics.bounds.entries.HomeCat;
 
 import java.util.*;
 
-/**
- * @author sergey
- * created on 23.11.18.
- */
 public class ArrayListDemo {
     public static void main( String[] args ) {
 
