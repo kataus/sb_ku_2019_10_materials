@@ -1,0 +1,1 @@
+mvn archetype:generate -DgroupId=ru.sbrf.java_course.vk -DartifactId=maven-sample-child -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
