@@ -1,0 +1,34 @@
+package ru.sbrf.ku.java.generics;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author sergey
+ * created on 23.11.18.
+ */
+public class GenericsClass<K, V> {
+
+    private final Map<K, V> map = new HashMap<>();
+
+    private void putVal(K key, V val) {
+        map.put(key, val);
+    }
+
+    private void print() {
+        map.forEach((key, val) -> {
+            System.out.println("key:" + key +" , val:" + val);
+        });
+    }
+
+    public static void main(String[] args) {
+        GenericsClass<Integer, String> genericsClass =  new GenericsClass<>();
+        genericsClass.putVal(1, "data1");
+        genericsClass.putVal(2, "data2");
+        genericsClass.putVal(3, "data3");
+
+        genericsClass.print();
+    }
+
+
+}
