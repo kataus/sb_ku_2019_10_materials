@@ -1,11 +1,14 @@
 package ru.itvitality.sbrf.cu.rj.atm.atm.impl;
 
 import ru.itvitality.sbrf.cu.rj.atm.Nominal;
-import ru.itvitality.sbrf.cu.rj.atm.atm.ATMService;
 import ru.itvitality.sbrf.cu.rj.atm.atm.ATM;
+import ru.itvitality.sbrf.cu.rj.atm.atm.ATMService;
 import ru.itvitality.sbrf.cu.rj.atm.cell.Cell;
 import ru.itvitality.sbrf.cu.rj.atm.cell.impl.CellImpl;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ATMImpl implements ATMService, ATM {
@@ -16,6 +19,10 @@ public class ATMImpl implements ATMService, ATM {
         for ( Nominal nominal : Nominal.values() ) {
             this.atmStorage.put( nominal, new CellImpl( nominal, 0 ) );
         }
+    }
+
+    public ATMImpl(String fileName){
+        //TODO
     }
 
     @Override
@@ -82,5 +89,19 @@ public class ATMImpl implements ATMService, ATM {
             balance += cell.getCount() * cell.getNominal().getNominal();
         }
         return balance;
+    }
+
+    @Override
+    public void saveToFile( String fileName ) throws IOException {
+        File file = new File( fileName );
+        if ( file.exists() ) {
+            file.delete();
+        }
+        try ( FileWriter writer = new FileWriter( file ) ) {
+            for ( Cell item : atmStorage.values() ) {
+                String str = item.getNominal().getNominal() + ":" + item.getCount() + "\n";
+                writer.write( str );
+            }
+        }
     }
 }
