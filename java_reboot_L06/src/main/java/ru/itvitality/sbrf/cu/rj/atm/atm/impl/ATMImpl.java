@@ -19,7 +19,7 @@ public class ATMImpl implements ATMService, ATM {
         }
     }
 
-    public ATMImpl(String fileName) throws IOException {
+    public void loadFromFile(String fileName) throws IOException {
         List<String> listIni = readIniFile(fileName);
         if (listIni!=null)
         {

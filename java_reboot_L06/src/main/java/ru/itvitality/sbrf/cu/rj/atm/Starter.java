@@ -24,7 +24,12 @@ public class Starter {
     }
 
     private void startAtm( String fileName ) {
-        atm=new ATMImpl(fileName);
+        atm=new ATMImpl();
+        try {
+            ((ATMImpl)atm).loadFromFile( fileName );
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        }
     }
 
     private void startClientInteraction() throws IOException {
