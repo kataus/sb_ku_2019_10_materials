@@ -26,7 +26,12 @@ class Sheep implements Cloneable {
 
     @Override
     public Sheep clone()  {
-        return new Sheep(name);
+        try {
+            return (Sheep) super.clone();
+        } catch ( CloneNotSupportedException e ) {
+            throw new RuntimeException(  );
+        }
+        //return new Sheep(name);
     }
 
     @Override

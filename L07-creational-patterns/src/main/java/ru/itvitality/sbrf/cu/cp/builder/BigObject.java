@@ -13,6 +13,7 @@ public class BigObject {
         this.param3 = builder.param3;
         this.param4 = builder.param4;
         this.param5 = builder.param5;
+        Object o;
     }
 
     @Override
