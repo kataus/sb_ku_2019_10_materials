@@ -12,27 +12,27 @@ import java.util.*;
 public class ATMImpl implements ATMService, ATM {
     private Map<Nominal, Cell> atmStorage;
 
-    public ATMImpl() {
+    private BufferedReader bufferedReader;
+
+    private ATMImpl() {
         this.atmStorage = new HashMap<>();
         for ( Nominal nominal : Nominal.values() ) {
-            this.atmStorage.put( nominal, new CellImpl( nominal, 0 ) );
+            this.atmStorage.put( nominal, new CellImpl( UUID.randomUUID().toString(), nominal, 0 ) );
         }
     }
 
-    public void loadFromFile(String fileName) throws IOException {
-        List<String> listIni = readIniFile(fileName);
-        if (listIni!=null)
-        {
-            for(String str:listIni)
-            {
-                String splitStr[]=str.split(":");
-                Integer count=Integer.parseInt(splitStr[1]);
-                Integer currNominal=Integer.parseInt(splitStr[0]);
-                Cell cell=new CellImpl(Nominal.getNominalFromInt(currNominal), count);
-                atmStorage.put(cell.getNominal(), cell);
-
-            }
-        }
+    void loadFromFile( String fileName ) throws IOException {
+//        List<String> listIni = readIniFile( fileName );
+//        if ( listIni != null ) {
+//            for ( String str : listIni ) {
+//                String splitStr[] = str.split( ":" );
+//                Integer count = Integer.parseInt( splitStr[ 1 ] );
+//                Integer currNominal = Integer.parseInt( splitStr[ 0 ] );
+//                Cell cell = new CellImpl( Nominal.getNominalFromInt( currNominal ), count );
+//                atmStorage.put( cell.getNominal(), cell );
+//
+//            }
+//        }
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ATMImpl implements ATMService, ATM {
         for ( Nominal banknoteNominal : cashList ) {
             Cell curCell = this.atmStorage.get( banknoteNominal );
             curCell.put( 1 );
-            this.atmStorage.replace( banknoteNominal, curCell );
+
         }
     }
 
@@ -115,18 +115,41 @@ public class ATMImpl implements ATMService, ATM {
         }
     }
 
-    public List<String> readIniFile(String fileName) throws IOException {
-        File file = new File(fileName);
-        if (file.exists()) {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            List<String> linesNominal = new ArrayList<String>();
-            while ((line = reader.readLine()) != null) {
-                linesNominal.add(line);
-            }
-            return linesNominal;
+    public ATMImpl setBufferedReader( BufferedReader bufferedReader ) {
+        this.bufferedReader = bufferedReader;
+        return this;
+    }
+
+    private List<String> readIniFile( String fileName ) throws IOException {
+        File file = new File( fileName );
+
+        if ( bufferedReader == null ) {
+            bufferedReader = new BufferedReader( new FileReader( file ) );
         }
-        else
-            return null;
+        String line;
+        List<String> linesNominal = new ArrayList<String>();
+        while ( ( line = bufferedReader.readLine() ) != null ) {
+            linesNominal.add( line );
+        }
+        return linesNominal;
+
+    }
+
+    public static class ATMImplBuilder {
+        public static ATMImpl build() {
+            ATMImpl atm = new ATMImpl();
+            return atm;
+        }
+
+        public static ATMImpl buildFromFile( String fileName ) {
+            ATMImpl atm = new ATMImpl();
+            atm.atmStorage = new HashMap<>();
+            try {
+                atm.loadFromFile( fileName );
+            } catch ( IOException e ) {
+                e.printStackTrace();
+            }
+            return atm;
+        }
     }
 }

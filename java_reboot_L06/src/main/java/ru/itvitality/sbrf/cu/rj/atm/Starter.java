@@ -23,14 +23,7 @@ public class Starter {
         starter.startClientInteraction();
     }
 
-    private void startAtm( String fileName ) {
-        atm=new ATMImpl();
-        try {
-            ((ATMImpl)atm).loadFromFile( fileName );
-        } catch ( IOException e ) {
-            e.printStackTrace();
-        }
-    }
+
 
     private void startClientInteraction() throws IOException {
         System.out.println( "Hello, my dear friend. What's your name?" );
@@ -68,6 +61,10 @@ public class Starter {
     }
 
     private void startAtm() {
-        atm = new ATMImpl();
+        atm = ATMImpl.ATMImplBuilder.build();
+    }
+
+    private void startAtm( String fileName ) {
+        atm= ATMImpl.ATMImplBuilder.buildFromFile( fileName );
     }
 }

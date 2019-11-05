@@ -4,10 +4,12 @@ import ru.itvitality.sbrf.cu.rj.atm.Nominal;
 import ru.itvitality.sbrf.cu.rj.atm.cell.Cell;
 
 public class CellImpl implements Cell {
+    private final String id;
     private final Nominal nominal;
     private Integer count;
 
-    public CellImpl( Nominal cellNominal, Integer cellCount ) {
+    public CellImpl( String id, Nominal cellNominal, Integer cellCount ) {
+        this.id = id;
         this.nominal = cellNominal;
         this.count = cellCount;
     }
@@ -34,4 +36,7 @@ public class CellImpl implements Cell {
         return this.nominal;
     }
 
+    public String getId() {
+        return id;
+    }
 }
