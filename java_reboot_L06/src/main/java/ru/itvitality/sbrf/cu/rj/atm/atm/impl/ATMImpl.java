@@ -6,9 +6,7 @@ import ru.itvitality.sbrf.cu.rj.atm.atm.ATMService;
 import ru.itvitality.sbrf.cu.rj.atm.cell.Cell;
 import ru.itvitality.sbrf.cu.rj.atm.cell.impl.CellImpl;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class ATMImpl implements ATMService, ATM {
@@ -21,8 +19,20 @@ public class ATMImpl implements ATMService, ATM {
         }
     }
 
-    public ATMImpl(String fileName){
-        //TODO
+    public ATMImpl(String fileName) throws IOException {
+        List<String> listIni = readIniFile(fileName);
+        if (listIni!=null)
+        {
+            for(String str:listIni)
+            {
+                String splitStr[]=str.split(":");
+                Integer count=Integer.parseInt(splitStr[1]);
+                Integer currNominal=Integer.parseInt(splitStr[0]);
+                Cell cell=new CellImpl(Nominal.getNominalFromInt(currNominal), count);
+                atmStorage.put(cell.getNominal(), cell);
+
+            }
+        }
     }
 
     @Override
@@ -103,5 +113,20 @@ public class ATMImpl implements ATMService, ATM {
                 writer.write( str );
             }
         }
+    }
+
+    public List<String> readIniFile(String fileName) throws IOException {
+        File file = new File(fileName);
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            List<String> linesNominal = new ArrayList<String>();
+            while ((line = reader.readLine()) != null) {
+                linesNominal.add(line);
+            }
+            return linesNominal;
+        }
+        else
+            return null;
     }
 }

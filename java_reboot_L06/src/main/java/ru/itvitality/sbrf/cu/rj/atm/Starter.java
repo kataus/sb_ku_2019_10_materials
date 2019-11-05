@@ -14,11 +14,17 @@ public class Starter {
     private String FILE_NAME;
 
     public static void main( String args[] ) throws IOException {
-        Starter starter = new Starter();
-        starter.FILE_NAME = args[ 0 ];
-        starter.startAtm();
-
+        Starter starter=new Starter();
+        starter.FILE_NAME=args[0];
+        if (starter.FILE_NAME.trim().length()>0)
+            starter.startAtm(starter.FILE_NAME);
+        else
+            starter.startAtm();
         starter.startClientInteraction();
+    }
+
+    private void startAtm( String fileName ) {
+        atm=new ATMImpl(fileName);
     }
 
     private void startClientInteraction() throws IOException {
