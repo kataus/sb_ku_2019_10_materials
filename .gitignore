@@ -5,3 +5,5 @@ target/
 *.key
 *.class
 *.pptx
+/atm.ss
+dependency-reduced-pom.xml
