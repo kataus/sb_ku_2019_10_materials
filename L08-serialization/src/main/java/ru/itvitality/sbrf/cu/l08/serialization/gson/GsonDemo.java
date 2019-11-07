@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08serialization.gson;
+package ru.itvitality.sbrf.cu.l08.serialization.gson;
 
 import com.google.gson.Gson;
 

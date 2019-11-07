@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08serialization.protobuf;
+package ru.itvitality.sbrf.cu.l08.serialization.protobuf;
 
 
 import com.google.protobuf.util.JsonFormat;

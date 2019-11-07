@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08serialization.simpleJson;
+package ru.itvitality.sbrf.cu.l08.serialization.simpleJson;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

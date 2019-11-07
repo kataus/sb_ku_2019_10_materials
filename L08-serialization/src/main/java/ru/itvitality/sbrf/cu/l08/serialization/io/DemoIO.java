@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08serialization.io;
+package ru.itvitality.sbrf.cu.l08.serialization.io;
 
 import java.io.*;
 import java.util.zip.ZipEntry;

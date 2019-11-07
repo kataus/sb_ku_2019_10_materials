@@ -14,6 +14,7 @@
         <module>java_reboot_L06</module>
         <module>L07-creational-patterns</module>
         <module>L08-serialization</module>
+        <module>L08-logging</module>
     </modules>
 
     <dependencyManagement>

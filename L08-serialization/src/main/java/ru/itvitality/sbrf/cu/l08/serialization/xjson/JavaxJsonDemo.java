@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08serialization.xjson;
+package ru.itvitality.sbrf.cu.l08.serialization.xjson;
 
 
 import javax.json.Json;
