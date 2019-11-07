@@ -1,6 +1,6 @@
-package ru.itvitality.sbrf.cu.l08.logging.xml.jaxb;
+package ru.itvitality.sbrf.cu.l08.xml.jaxb;
 
-import ru.itvitality.sbrf.cu.l08.logging.xml.sax.XMLreader;
+import ru.itvitality.sbrf.cu.l08.xml.sax.XMLreader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

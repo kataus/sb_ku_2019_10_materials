@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08.logging.xml.jaxb;
+package ru.itvitality.sbrf.cu.l08.xml.jaxb;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

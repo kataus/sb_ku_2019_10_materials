@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08.logging.xml.sax;
+package ru.itvitality.sbrf.cu.l08.xml.sax;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;

@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08.logging.xml.dom;
+package ru.itvitality.sbrf.cu.l08.xml.dom;
 
 /**
  * @author sergey

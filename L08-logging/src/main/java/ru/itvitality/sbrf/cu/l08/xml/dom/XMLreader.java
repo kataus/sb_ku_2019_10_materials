@@ -1,4 +1,4 @@
-package ru.itvitality.sbrf.cu.l08.logging.xml.dom;
+package ru.itvitality.sbrf.cu.l08.xml.dom;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class XMLreader {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
-        ClassLoader classLoader = ru.itvitality.sbrf.cu.l08.logging.xml.sax.XMLreader.class.getClassLoader();
+        ClassLoader classLoader = ru.itvitality.sbrf.cu.l08.xml.sax.XMLreader.class.getClassLoader();
         File file = new File(classLoader.getResource("data.xml").getFile());
 
 
