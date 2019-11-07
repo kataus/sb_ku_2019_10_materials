@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -98,8 +97,8 @@ public class AtmImplTest {
 
     @Test
     public void testLoadFromFile() throws IOException {
-        BufferedReader mockedReaded = mock(BufferedReader.class);
-        when( mockedReaded.readLine() ).thenReturn( "100:5" ).thenReturn( "500:1" ).thenReturn( null );
+        BufferedReader mockedReaded = mock( BufferedReader.class );
+        when( mockedReaded.readLine() ).thenReturn( "1:100:5" ).thenReturn( "2:500:1" ).thenReturn( null );
 
         ATMImpl atm = ATMImpl.ATMImplBuilder.build();
         atm.setBufferedReader( mockedReaded );

@@ -5,43 +5,61 @@ import ru.itvitality.sbrf.cu.rj.atm.atm.ATM;
 import ru.itvitality.sbrf.cu.rj.atm.atm.ATMService;
 import ru.itvitality.sbrf.cu.rj.atm.cell.Cell;
 import ru.itvitality.sbrf.cu.rj.atm.cell.impl.CellImpl;
+import ru.itvitality.sbrf.cu.rj.atm.exceptions.CellIsFullException;
 
 import java.io.*;
 import java.util.*;
 
 public class ATMImpl implements ATMService, ATM {
-    private Map<Nominal, Cell> atmStorage;
+    private List<Cell> atmStorage;
 
     private BufferedReader bufferedReader;
 
     private ATMImpl() {
-        this.atmStorage = new HashMap<>();
+        this.atmStorage = new ArrayList<>(  );
         for ( Nominal nominal : Nominal.values() ) {
-            this.atmStorage.put( nominal, new CellImpl( UUID.randomUUID().toString(), nominal, 0 ) );
+            this.atmStorage.add( new CellImpl( UUID.randomUUID().toString(), nominal, 0 ) );
         }
+        sortCells();
     }
 
-    void loadFromFile( String fileName ) throws IOException {
-//        List<String> listIni = readIniFile( fileName );
-//        if ( listIni != null ) {
-//            for ( String str : listIni ) {
-//                String splitStr[] = str.split( ":" );
-//                Integer count = Integer.parseInt( splitStr[ 1 ] );
-//                Integer currNominal = Integer.parseInt( splitStr[ 0 ] );
-//                Cell cell = new CellImpl( Nominal.getNominalFromInt( currNominal ), count );
-//                atmStorage.put( cell.getNominal(), cell );
-//
-//            }
-//        }
+    public void loadFromFile( String fileName ) throws IOException {
+        atmStorage = new ArrayList<>(  );
+        List<String> listIni = readIniFile( fileName );
+        if ( listIni != null ) {
+            for ( String str : listIni ) {
+                String splitStr[] = str.split( ":" );
+                Integer count = Integer.parseInt( splitStr[ 2 ] );
+                Integer currNominal = Integer.parseInt( splitStr[ 1 ] );
+                String id = splitStr[0];
+                Cell cell = new CellImpl( id, Nominal.getNominalFromInt( currNominal ), count );
+                atmStorage.add( cell );
+            }
+        }
+        sortCells();
     }
 
     @Override
-    public void putCash( List<Nominal> cashList ) {
+    public List<Nominal> putCash( List<Nominal> cashList ) {
+        List<Nominal> unacceptedBanknotes = new ArrayList<>(  );
         for ( Nominal banknoteNominal : cashList ) {
-            Cell curCell = this.atmStorage.get( banknoteNominal );
-            curCell.put( 1 );
-
+            boolean accepted = false;
+            for (Cell cell : atmStorage){
+                if (cell.getNominal().equals( banknoteNominal )){
+                    try {
+                        cell.put( 1 );
+                        accepted = true;
+                        break;
+                    } catch ( CellIsFullException e ){
+                        // TODO Залоггировать
+                    }
+                }
+            }
+            if (!accepted){
+                unacceptedBanknotes.add( banknoteNominal );
+            }
         }
+        return unacceptedBanknotes;
     }
 
     @Override
@@ -53,35 +71,25 @@ public class ATMImpl implements ATMService, ATM {
             throw new IllegalArgumentException( "Запрашиваемая сумма превышает остаток денег в банкомате." );
         }
         List<Nominal> outList = new ArrayList<>();
-        List<Nominal> nominalList = new ArrayList<>( this.atmStorage.keySet() );
-        nominalList.sort( Comparator.reverseOrder() );
 
-        Map<Nominal, Integer> checkMap = new HashMap<>();
-
-        for ( Nominal nominal : nominalList ) {
-            Cell cell = this.atmStorage.get( nominal );
+        for ( Cell cell : atmStorage ) {
+            Nominal nominal = cell.getNominal();
             Integer mustGive = sum / nominal.getNominal();
-            sum = sum % nominal.getNominal();
 
             Integer canGive = cell.getCount();
+            int processValue = Math.min( canGive, mustGive );
+            if ( processValue > 0 ) {
 
-            if ( canGive < mustGive ) {
-                sum += ( mustGive - canGive ) * nominal.getNominal();
-                checkMap.put( nominal, canGive );
-            } else {
-                checkMap.put( nominal, mustGive );
+                sum -= processValue * nominal.getNominal();
+                cell.get( canGive );
+                for (int i = 0; i < processValue; i++){
+                    outList.add( nominal );
+                }
             }
         }
         if ( sum != 0 ) {
-            int iHave = 0;
-            for ( Nominal key : checkMap.keySet() ) {
-                iHave += key.getNominal() * checkMap.get( key );
-            }
-            throw new IllegalArgumentException( "Невозможно выдать запрашиваемую сумму имеющимися купюрами, максимально возможная сумма: " + iHave );
-        } else {
-            for ( Nominal key : checkMap.keySet() ) {
-                addBanknotes( checkMap.get( key ), key, outList );
-            }
+            putCash( outList );
+            outList = new ArrayList<>(  );
         }
         return outList;
     }
@@ -95,7 +103,7 @@ public class ATMImpl implements ATMService, ATM {
     @Override
     public Integer getBalance() {
         Integer balance = 0;
-        for ( Cell cell : this.atmStorage.values() ) {
+        for ( Cell cell : this.atmStorage ) {
             balance += cell.getCount() * cell.getNominal().getNominal();
         }
         return balance;
@@ -108,11 +116,26 @@ public class ATMImpl implements ATMService, ATM {
             file.delete();
         }
         try ( FileWriter writer = new FileWriter( file ) ) {
-            for ( Cell item : atmStorage.values() ) {
+            for ( Cell item : atmStorage ) {
                 String str = item.getNominal().getNominal() + ":" + item.getCount() + "\n";
                 writer.write( str );
             }
         }
+    }
+
+    @Override
+    public List<Cell> getCells() {
+        return null;
+    }
+
+    @Override
+    public Cell extractCell( String id ) {
+        return null;
+    }
+
+    @Override
+    public void insertCell( Cell cell ) {
+
     }
 
     public ATMImpl setBufferedReader( BufferedReader bufferedReader ) {
@@ -143,7 +166,7 @@ public class ATMImpl implements ATMService, ATM {
 
         public static ATMImpl buildFromFile( String fileName ) {
             ATMImpl atm = new ATMImpl();
-            atm.atmStorage = new HashMap<>();
+            atm.atmStorage = new ArrayList<>();
             try {
                 atm.loadFromFile( fileName );
             } catch ( IOException e ) {
@@ -151,5 +174,15 @@ public class ATMImpl implements ATMService, ATM {
             }
             return atm;
         }
+    }
+
+    private void sortCells() {
+        Collections.sort( atmStorage, new Comparator<Cell>() {
+            @Override
+            public int compare( Cell o1, Cell o2 ) {
+                return o2.getNominal().getNominal().compareTo( o1.getNominal().getNominal() );
+            }
+        } );
+
     }
 }
