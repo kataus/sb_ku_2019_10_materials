@@ -4,11 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-/**
- * @author sergey
- * created on 24.09.18.
- */
-
 @XmlRootElement(name = "share")
 public class Share {
 

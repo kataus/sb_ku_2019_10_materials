@@ -3,11 +3,6 @@ package ru.itvitality.sbrf.cu.l08.log.ex04;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author sergey
- * created on 14.08.18.
- */
-
 
 /*
 yum install rsyslog

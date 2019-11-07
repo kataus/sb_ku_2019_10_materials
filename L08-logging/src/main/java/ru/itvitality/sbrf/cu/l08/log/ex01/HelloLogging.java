@@ -3,10 +3,6 @@ package ru.itvitality.sbrf.cu.l08.log.ex01;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author sergey
- * created on 14.08.18.
- */
 public class HelloLogging {
     private static Logger logger = LoggerFactory.getLogger(HelloLogging.class);
 

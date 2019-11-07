@@ -19,10 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sergey
- * created on 25.09.18.
- */
 public class XMLreader {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
         ClassLoader classLoader = ru.itvitality.sbrf.cu.l08.xml.sax.XMLreader.class.getClassLoader();

@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author sergey
- * created on 14.08.18.
- */
 public class Cache {
 
     private final Map<String, Data> dataStore = new HashMap<>();

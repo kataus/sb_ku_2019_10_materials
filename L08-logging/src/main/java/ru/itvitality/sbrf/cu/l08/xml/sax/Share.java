@@ -1,9 +1,5 @@
 package ru.itvitality.sbrf.cu.l08.xml.sax;
 
-/**
- * @author sergey
- * created on 24.09.18.
- */
 public class Share {
 
     private String ticker;

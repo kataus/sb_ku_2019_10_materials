@@ -9,9 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author sergey
- */
 public class XMLreader {
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {

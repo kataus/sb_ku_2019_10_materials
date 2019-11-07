@@ -6,10 +6,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author sergey
- * created on 24.09.18.
- */
+
 public class XMLhandler extends DefaultHandler {
     private final List<Share> result = new ArrayList<>();
     private Share share;

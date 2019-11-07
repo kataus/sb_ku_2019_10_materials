@@ -2,10 +2,6 @@ package ru.itvitality.sbrf.cu.l08.log.cache;
 
 import java.util.List;
 
-/**
- * @author sergey
- * created on 14.08.18.
- */
 public final class Data {
     private final int id;
     private final List<String> values;

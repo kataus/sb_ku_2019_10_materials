@@ -3,10 +3,6 @@ package ru.itvitality.sbrf.cu.l08.log.ex03;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author sergey
- * created on 13.08.18.
- */
 public class LoggerRollingPolicyExample {
     private static Logger logger = LoggerFactory.getLogger(LoggerRollingPolicyExample.class);
     private long counter = 0;
