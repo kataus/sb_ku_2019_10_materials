@@ -44,4 +44,9 @@ public class CellImpl implements Cell {
     public String getId() {
         return id;
     }
+
+    @Override
+    public Integer getBalance() {
+        return nominal.getNominal()*count;
+    }
 }
