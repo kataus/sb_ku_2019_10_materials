@@ -12,6 +12,9 @@ public class H2demo {
         demo.createTable();
         int id = 1;
         demo.insertRecord(id);
+        demo.insertRecord(2);
+        demo.insertRecord(3);
+        demo.insertRecord(4);
         // много вставок
         demo.selectRecord(id);
         demo.close();
