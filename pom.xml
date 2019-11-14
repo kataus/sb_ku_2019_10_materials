@@ -15,7 +15,8 @@
         <module>L07-creational-patterns</module>
         <module>L08-serialization</module>
         <module>L08-logging</module>
-        <module>L09_h2_demo</module>
+
+        <module>library</module>
     </modules>
 
     <dependencyManagement>
