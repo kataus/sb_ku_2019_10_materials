@@ -1,9 +1,16 @@
 package ru.itvitality.sbrf.cu.library.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "user")
 public class Client {
+    @Id
+    @GeneratedValue
     private Integer id;
+
+    @Column(name = "name")
     private String name;
 
     public Integer getId() {

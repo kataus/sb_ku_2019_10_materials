@@ -1,61 +1,57 @@
 package ru.itvitality.sbrf.cu.library.dao.impl;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import ru.itvitality.sbrf.cu.library.dao.ClientDao;
 import ru.itvitality.sbrf.cu.library.entities.Client;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDaoImpl implements ClientDao {
-    private final Connection connection;
 
-    //TODO - убрать исключение из конструктора (не try-catch)
-    public ClientDaoImpl() throws SQLException {
-        //TODO сделать базу хранимой на диске
-        this.connection = DriverManager.getConnection( "jdbc:h2:mem:" );
-        this.connection.setAutoCommit( false );
+    private final SessionFactory sessionFactory;
+
+    public ClientDaoImpl() {
+        Configuration configuration = new Configuration()
+                .configure( "hibernate.cfg.xml" );
+
+        StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings( configuration.getProperties() ).build();
+
+        Metadata metadata = new MetadataSources( serviceRegistry )
+                .addAnnotatedClass( Client.class )
+                .getMetadataBuilder()
+                .build();
+        sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
 
     @Override
-    public void insert( Client client ) throws SQLException {
-        try ( PreparedStatement ps = connection.prepareStatement( "insert into user(id,name) values (?,?)" ) ) {
-            ps.setInt( 1, client.getId() );
-            ps.setString( 2, client.getName() );
+    public void insert( Client client ) {
+        try ( Session session = sessionFactory.openSession() ) {
+            session.beginTransaction();
+            session.save( client );
+            System.out.println( ">>>>>>>>>>> created:" + client );
 
-            int rowCount = ps.executeUpdate();
-            System.out.println( "inserted rowCount: " + rowCount );
-            this.connection.commit();
+            System.out.println( ">>>>>>>>>>> before commit" );
+            session.getTransaction().commit();
+
+            // А тут select не выполняется, Person берется из кэша L1
+            Client selected = session.get( Client.class, client.getId() );
+            System.out.println( ">>>>>>>>>>> selected:" + selected );
         }
 
     }
 
     @Override
-    public List<Client> list() throws SQLException {
-        List<Client> clients = new ArrayList<>();
-        try ( PreparedStatement ps = this.connection.prepareStatement( "select id, name from user" ) ) {
-            ResultSet resultSet = ps.executeQuery();
+    public List<Client> list() {
+        try ( Session session = sessionFactory.openSession() ) {
+            return session.createQuery( "select u from Client u", Client.class ).list();
 
-            while ( resultSet.next() ) {
-                Client client = new Client();
-                client.setId( resultSet.getInt( "id" ) );
-                client.setName( resultSet.getString( "name" ) );
-                clients.add( client );
-            }
-
-        }
-        return clients;
-    }
-
-    @Override
-    public void close() throws SQLException {
-        this.connection.close();
-    }
-
-    @Override
-    public void createTable() throws SQLException {
-        try ( PreparedStatement ps = connection.prepareStatement( "create table user(id int, name varchar(100))" ) ) {
-            ps.executeUpdate();
         }
     }
 }

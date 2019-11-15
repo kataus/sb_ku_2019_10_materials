@@ -7,3 +7,5 @@ target/
 *.pptx
 /atm.ss
 dependency-reduced-pom.xml
+*.log
+*.bin
