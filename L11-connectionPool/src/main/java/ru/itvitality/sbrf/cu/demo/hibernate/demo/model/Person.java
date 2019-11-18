@@ -13,6 +13,7 @@ import java.util.List;
         query = "select p from Person p where name = :name"
 )
 @Entity
+@Table(name = "client")
 public class Person {
 
     @Id
@@ -27,7 +28,7 @@ public class Person {
 
     private Date createdOn;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Phone> phones = new ArrayList<>();
 
 

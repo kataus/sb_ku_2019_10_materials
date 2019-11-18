@@ -53,10 +53,10 @@ public class HiberDemo {
     public static void main(String[] args) {
         HiberDemo demo = new HiberDemo();
 
-        demo.entityExample();
+//        demo.entityExample();
 //        demo.leakageExample();
 //        demo.fetchExample();
-//        demo.JPQLExample();
+        demo.JPQLExample();
 //        demo.nativeExample();
 
     }
@@ -138,7 +138,7 @@ public class HiberDemo {
 
             List<Phone> listPhone = new ArrayList<>();
             for (int idx = 0; idx < 100; idx++) {
-                listPhone.add(new Phone("+" + idx, person));
+                listPhone.add(new Phone("+7" + idx, person));
             }
             person.setPhones(listPhone);
 
@@ -147,18 +147,42 @@ public class HiberDemo {
             personId = person.getId();
 
             System.out.println("commit...");
+
+            Person person1 = new Person();
+            person1.setName( "Ilia" );
+            person1.setNickName( "Murometz" );
+            person1.setAddress( "forest" );
+
+            listPhone = new ArrayList<>();
+            for (int idx = 0; idx < 100; idx++) {
+                listPhone.add(new Phone("+0" + idx, person));
+            }
+            person1.setPhones(listPhone);
+
+            session.save( person1 );
+
             transaction.commit();
         }
 
-        Person selected;
-        try (Session session = sessionFactory.openSession()) {
-            Phone selectedPhone = session.load(Phone.class, 3L);
-            System.out.println("selectedPhone:" + selectedPhone);
+//        Person selected;
+//        try (Session session = sessionFactory.openSession()) {
+//            Phone selectedPhone = session.load(Phone.class, 3L);
+//            System.out.println("selectedPhone:" + selectedPhone);
+//
+//            selected = session.load(Person.class, personId);
+//            System.out.println("selected person:" + selected.getName());
+//            System.out.println(selected.getPhones());
+//
+//
+//        }
 
-            selected = session.load(Person.class, personId);
-            System.out.println("selected person:" + selected.getName());
-            System.out.println(selected.getPhones());
-        }
+        EntityManager entityManager = sessionFactory.createEntityManager();
+        List<Person> persons =  entityManager
+                .createQuery( "select p from Person p", Person.class )
+                .getResultList();
+        System.out.println( ">>>>>>>>>> we get " + persons.size() + " persons" );
+        System.out.println( persons.get( 0 ).getPhones() );
+
     }
 
     private void JPQLExample() {
