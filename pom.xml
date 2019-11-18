@@ -17,6 +17,7 @@
         <module>L08-logging</module>
 
         <module>library</module>
+        <module>L11-connectionPool</module>
     </modules>
 
     <dependencyManagement>
