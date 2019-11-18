@@ -99,13 +99,14 @@ public class AtmImplTest {
     @Test
     public void testLoadFromFile() throws IOException {
         BufferedReader mockedReaded = mock(BufferedReader.class);
-        when( mockedReaded.readLine() ).thenReturn( "100:5" ).thenReturn( "500:1" ).thenReturn( null );
+        when( mockedReaded.readLine() ).thenReturn( "4f5c408d-67aa-40b0-8410-f3b95565d12b:200:1" ).thenReturn( "3a4c84d2-502f-440e-9fcd-49597e67511b:100:3" ).thenReturn( null );
 
         ATMImpl atm = ATMImpl.ATMImplBuilder.build();
         atm.setBufferedReader( mockedReaded );
 
-        atm.loadFromFile( "/test" );
+        atm.loadFromFile( "/home/renatka/Downloads/test/1121977/sb_ku_2019_10_materials/test.ini" );
+//        atm.loadFromFile( "/test" );
 
-        assertEquals( atm.getBalance(), 1000 );
+        assertEquals( atm.getBalance(), 500 );
     }
 }

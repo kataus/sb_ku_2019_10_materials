@@ -36,6 +36,7 @@ public class CellImpl implements Cell {
         return this.nominal;
     }
 
+    @Override
     public String getId() {
         return id;
     }
