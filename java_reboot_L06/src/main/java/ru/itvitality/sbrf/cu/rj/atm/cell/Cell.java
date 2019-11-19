@@ -1,6 +1,8 @@
 package ru.itvitality.sbrf.cu.rj.atm.cell;
 
+import ru.itvitality.sbrf.cu.rj.atm.Balanceable;
 import ru.itvitality.sbrf.cu.rj.atm.Nominal;
+
 
 public interface Cell {
     public static int MAX_COUNT = 10;

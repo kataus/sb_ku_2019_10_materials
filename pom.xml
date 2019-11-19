@@ -25,6 +25,7 @@
     <modules>
         <module>java_reboot_L06</module>
         <module>L07-creational-patterns</module>
+
     </modules>
 
     <dependencyManagement>

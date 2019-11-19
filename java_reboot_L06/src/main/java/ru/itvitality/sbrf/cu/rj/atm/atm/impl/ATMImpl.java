@@ -1,13 +1,18 @@
 package ru.itvitality.sbrf.cu.rj.atm.atm.impl;
 
+import com.google.gson.Gson;
+import ru.itvitality.sbrf.cu.rj.atm.Balanceable;
 import ru.itvitality.sbrf.cu.rj.atm.Nominal;
 import ru.itvitality.sbrf.cu.rj.atm.atm.ATM;
 import ru.itvitality.sbrf.cu.rj.atm.atm.ATMService;
 import ru.itvitality.sbrf.cu.rj.atm.cell.Cell;
 import ru.itvitality.sbrf.cu.rj.atm.cell.impl.CellImpl;
+import ru.itvitality.sbrf.cu.rj.atm.exceptions.CellIsFullException;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class ATMImpl implements ATMService, ATM {
     private Map<Cell, Nominal> atmStorage;
@@ -15,6 +20,7 @@ public class ATMImpl implements ATMService, ATM {
     private BufferedReader bufferedReader;
 
     private ATMImpl() {
+
         this.atmStorage = new HashMap<>();
         for ( Nominal nominal : Nominal.values() ) {
             this.atmStorage.put( new CellImpl( UUID.randomUUID().toString(), nominal, 0 ), nominal );
@@ -48,6 +54,7 @@ public class ATMImpl implements ATMService, ATM {
             }
             curCell.put(1);
         }
+        return unacceptedBanknotes;
     }
 
     @Override
@@ -59,6 +66,7 @@ public class ATMImpl implements ATMService, ATM {
             throw new IllegalArgumentException( "Запрашиваемая сумма превышает остаток денег в банкомате." );
         }
         List<Nominal> outList = new ArrayList<>();
+
         List<Nominal> nominalList = new ArrayList<>(this.atmStorage.values());
         nominalList.sort( Comparator.reverseOrder() );
 
@@ -108,11 +116,12 @@ public class ATMImpl implements ATMService, ATM {
 
     @Override
     public Integer getBalance() {
+
         Integer balance = 0;
         for ( Cell cell : this.atmStorage.keySet() ) {
             balance += cell.getCount() * cell.getNominal().getNominal();
         }
-        return balance;
+        return result;
     }
 
     @Override
@@ -121,7 +130,10 @@ public class ATMImpl implements ATMService, ATM {
         if ( file.exists() ) {
             file.delete();
         }
+        Gson gson = new Gson();
+        String data = gson.toJson( safe );
         try ( FileWriter writer = new FileWriter( file ) ) {
+
             for ( Cell item : this.atmStorage.keySet() ) {
                 String str = (item.getId() + ":" + item.getNominal().getNominal() + ":" + item.getCount() + "\n");
                 writer.write( str );
@@ -131,6 +143,7 @@ public class ATMImpl implements ATMService, ATM {
 
     @Override
     public List<Cell> getCells() {
+
         List<Cell> listCell = new ArrayList<>();
         for(Cell cell: this.atmStorage.keySet())
             listCell.add(cell);
@@ -162,18 +175,18 @@ public class ATMImpl implements ATMService, ATM {
         return this;
     }
 
-    private List<String> readIniFile( String fileName ) throws IOException {
+    private String readIniFile( String fileName ) throws IOException {
         File file = new File( fileName );
 
         if ( bufferedReader == null ) {
             bufferedReader = new BufferedReader( new FileReader( file ) );
         }
         String line;
-        List<String> linesNominal = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder(  );
         while ( ( line = bufferedReader.readLine() ) != null ) {
-            linesNominal.add( line );
+            sb.append( line );
         }
-        return linesNominal;
+        return sb.toString();
 
     }
 
@@ -185,7 +198,7 @@ public class ATMImpl implements ATMService, ATM {
 
         public static ATMImpl buildFromFile( String fileName ) {
             ATMImpl atm = new ATMImpl();
-            atm.atmStorage = new HashMap<>();
+
             try {
                 atm.loadFromFile( fileName );
             } catch ( IOException e ) {
@@ -193,5 +206,16 @@ public class ATMImpl implements ATMService, ATM {
             }
             return atm;
         }
+    }
+
+    private void sortCells() {
+        Collections.sort( safe.getCells(), new Comparator<Cell>() {
+            @Override
+            public int compare( Cell o1, Cell o2 ) {
+                return o2.getNominal().getNominal().compareTo( o1.getNominal().getNominal() );
+            }
+        } );
+        balanceables = safe.getCells().stream().collect( Collectors.toList());
+
     }
 }

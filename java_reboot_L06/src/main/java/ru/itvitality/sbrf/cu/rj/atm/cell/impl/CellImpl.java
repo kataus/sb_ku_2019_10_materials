@@ -2,8 +2,10 @@ package ru.itvitality.sbrf.cu.rj.atm.cell.impl;
 
 import ru.itvitality.sbrf.cu.rj.atm.Nominal;
 import ru.itvitality.sbrf.cu.rj.atm.cell.Cell;
+import ru.itvitality.sbrf.cu.rj.atm.exceptions.CellIsFullException;
 
 public class CellImpl implements Cell {
+    public static final Integer MAX_CAPACITY = 10;
     private final String id;
     private final Nominal nominal;
     private Integer count;
@@ -16,6 +18,9 @@ public class CellImpl implements Cell {
 
     @Override
     public void put( Integer count ) {
+        if (this.count + count > MAX_CAPACITY){
+            throw new CellIsFullException();
+        }
         this.count += count;
     }
 
@@ -39,5 +44,10 @@ public class CellImpl implements Cell {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public Integer getBalance() {
+        return nominal.getNominal()*count;
     }
 }
