@@ -1,56 +1,33 @@
 package ru.itvitality.sbrf.cu.library.entities;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
-@Table(name = "user")
-public class Client {
-    @Id
-    @GeneratedValue
-    private Integer id;
+@DiscriminatorValue("client")
+public class Client extends Holder {
+    @Column
+    private String address;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
-    public Integer getId() {
-        return id;
+    public String getAddress() {
+        return address;
     }
 
-    public Client setId( Integer id ) {
-        this.id = id;
+    public Client setAddress( String address ) {
+        this.address = address;
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getPhone() {
+        return phone;
     }
 
-    public Client setName( String name ) {
-        this.name = name;
+    public Client setPhone( String phone ) {
+        this.phone = phone;
         return this;
-    }
-
-    @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-        Client client = (Client) o;
-        return Objects.equals( id, client.id ) &&
-                Objects.equals( name, client.name );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash( id, name );
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder( "Client{" );
-        sb.append( "id=" ).append( id );
-        sb.append( ", name='" ).append( name ).append( '\'' );
-        sb.append( '}' );
-        return sb.toString();
     }
 }
