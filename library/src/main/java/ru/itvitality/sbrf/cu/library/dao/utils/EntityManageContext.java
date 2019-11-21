@@ -13,9 +13,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class EntityManageContext {
+    private static EntityManager em;
 
     public static EntityManager getInstance() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory( "library" );
-        return emf.createEntityManager();
+        if (em == null){
+            synchronized (em){
+                if (em == null){
+                    EntityManagerFactory emf = Persistence.createEntityManagerFactory( "library" );
+                    em = emf.createEntityManager();
+                }
+            }
+        }
+        return em;
     }
 }
