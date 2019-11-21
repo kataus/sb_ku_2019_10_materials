@@ -17,7 +17,7 @@ public class EntityManageContext {
 
     public static EntityManager getInstance() {
         if (em == null){
-            synchronized (em){
+            synchronized (EntityManageContext.class){
                 if (em == null){
                     EntityManagerFactory emf = Persistence.createEntityManagerFactory( "library" );
                     em = emf.createEntityManager();
