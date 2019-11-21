@@ -30,4 +30,15 @@ public class Client extends Holder {
         this.phone = phone;
         return this;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder( "Client{" );
+        sb.append( "id='" ).append( getId() ).append( '\'' );
+        sb.append( ", name='" ).append( getName() ).append( '\'' );
+        sb.append( ", address='" ).append( address ).append( '\'' );
+        sb.append( ", phone='" ).append( phone ).append( '\'' );
+        sb.append( '}' );
+        return sb.toString();
+    }
 }

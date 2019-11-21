@@ -21,7 +21,8 @@ public class BookDaoImpl extends AbstractDaoImpl implements BookDao {
 
     @Override
     public Book get( Long id ) {
-        return null;
+        Book book = em.find( Book.class, id );
+        return book.getDeleted() == 1 ? null : book;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class BookDaoImpl extends AbstractDaoImpl implements BookDao {
 
     @Override
     public List<Book> getBooksOnHolder( Long holderId ) {
+        //TODO * implement
         return null;
     }
 }
