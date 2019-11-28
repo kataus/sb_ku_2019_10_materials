@@ -37,6 +37,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>13</maven.compiler.source>
         <maven.compiler.target>13</maven.compiler.target>
+        <jetty.version>9.4.19.v20190610</jetty.version>
     </properties>
 
 </project>

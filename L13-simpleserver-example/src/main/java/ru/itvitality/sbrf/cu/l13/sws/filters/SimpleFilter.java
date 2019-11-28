@@ -23,8 +23,8 @@ public class SimpleFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        System.out.println("Request uri:" + request.getRequestURI());
-        System.out.println("Request user" + request.getUserPrincipal());
+        System.out.println("Request uri: " + request.getRequestURI());
+        System.out.println("Request user " + request.getUserPrincipal());
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
