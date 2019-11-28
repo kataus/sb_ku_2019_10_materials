@@ -11,12 +11,14 @@ public class BookDaoImpl extends AbstractDaoImpl implements BookDao {
 
     @Override
     public void add( Book book ) {
+        em.getTransaction().begin();
         em.persist( book );
+        em.getTransaction().commit();
     }
 
     @Override
     public List<Book> list() {
-        return null;
+        return em.createQuery( "select b from Book b", Book.class ).getResultList();
     }
 
     @Override
@@ -28,6 +30,12 @@ public class BookDaoImpl extends AbstractDaoImpl implements BookDao {
     @Override
     public void remove( Long id ) {
 
+        Book book = em.find( Book.class, id );
+        if (book != null){
+            em.getTransaction().begin();
+            book.setDeleted( 1 );
+            em.getTransaction().commit();
+        }
     }
 
     @Override

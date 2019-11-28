@@ -4,6 +4,7 @@ import ru.itvitality.sbrf.cu.library.dao.BookDao;
 import ru.itvitality.sbrf.cu.library.dao.ClientDao;
 import ru.itvitality.sbrf.cu.library.dao.impl.BookDaoImpl;
 import ru.itvitality.sbrf.cu.library.dao.impl.ClientDaoImpl;
+import ru.itvitality.sbrf.cu.library.entities.Book;
 import ru.itvitality.sbrf.cu.library.entities.Client;
 
 public class Starter {
@@ -22,5 +23,21 @@ public class Starter {
         clientDao.insert( client );
 
         clientDao.list().forEach( c -> System.out.println( c ) );
+
+        Book book = new Book();
+        book.setName( "Капитал" );
+        book.setAuthor( "К. Маркс" );
+        book.setIsbn( "123456" );
+        bookDao.add( book );
+
+        Long id = book.getId();
+
+        bookDao.list().forEach( b -> System.out.println( ">>>> " + b ) );
+
+        bookDao.remove( id );
+
+        book = bookDao.get(id);
+
+        System.out.println( "book = " + book );
     }
 }

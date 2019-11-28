@@ -20,7 +20,7 @@ public class Book {
     private String author;
 
     @Column
-    private Integer deleted;
+    private Integer deleted = 0;
 
     @OneToMany(targetEntity = Movement.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Movement> movements;
@@ -77,5 +77,17 @@ public class Book {
     public Book setDeleted( Integer deleted ) {
         this.deleted = deleted;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder( "Book{" );
+        sb.append( "id=" ).append( id );
+        sb.append( ", isbn='" ).append( isbn ).append( '\'' );
+        sb.append( ", name='" ).append( name ).append( '\'' );
+        sb.append( ", author='" ).append( author ).append( '\'' );
+        sb.append( ", deleted=" ).append( deleted );
+        sb.append( '}' );
+        return sb.toString();
     }
 }
