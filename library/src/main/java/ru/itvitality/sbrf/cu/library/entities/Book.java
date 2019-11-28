@@ -90,4 +90,15 @@ public class Book {
         sb.append( '}' );
         return sb.toString();
     }
+
+    public Book() {
+    }
+
+    public Book( String isbn, String name, String author ) {
+        this.id = null;
+        this.isbn = isbn;
+        this.name = name;
+        this.author = author;
+        this.deleted = 0;
+    }
 }
