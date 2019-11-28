@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" content="text/html;">
+<head>
+    <title>Info Page</title>
+    <script type="text/JavaScript">
+        function getDataFromServer() {
+            fetch('http://localhost:8080/data/' + new Date())
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (dataSrv) {
+                    document.getElementById("dataHolder").innerHTML = dataSrv;
+                })
+
+        }
+    </script>
+</head>
+<body onload="getDataFromServer();">
+<h1>Info Page</h1>
+<div id="dataHolder"></div>
+</body>
+</html>
