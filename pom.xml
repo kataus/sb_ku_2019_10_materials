@@ -18,6 +18,7 @@
 
         <module>library</module>
         <module>L11-connectionPool</module>
+        <module>L14_spring_xml</module>
     </modules>
 
     <dependencyManagement>
