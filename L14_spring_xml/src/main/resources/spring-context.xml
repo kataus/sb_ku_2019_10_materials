@@ -3,4 +3,9 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="personDao" class="ru.itvitality.sbrf.cu.l14xml.dao.PersonDaoSimple"/>
+
+    <bean id="personService" class="ru.itvitality.sbrf.cu.l14xml.service.PersonServiceImpl">
+        <constructor-arg name="dao" ref="personDao"/>
+    </bean>
 </beans>

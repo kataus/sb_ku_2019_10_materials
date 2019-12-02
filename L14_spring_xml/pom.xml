@@ -12,6 +12,10 @@
     <artifactId>L14_spring_xml</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.1.RELEASE</version>
+        </dependency>
     </dependencies>
 </project>
