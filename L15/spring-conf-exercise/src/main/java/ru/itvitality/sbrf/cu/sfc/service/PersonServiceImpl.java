@@ -1,8 +1,10 @@
 package ru.itvitality.sbrf.cu.sfc.service;
 
+import org.springframework.stereotype.Service;
 import ru.itvitality.sbrf.cu.sfc.dao.PersonDao;
 import ru.itvitality.sbrf.cu.sfc.domain.Person;
 
+@Service
 public class PersonServiceImpl implements PersonService {
 
     private final PersonDao dao;
