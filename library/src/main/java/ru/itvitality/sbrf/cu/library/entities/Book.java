@@ -13,10 +13,10 @@ public class Book {
     @Column(name = "isbn", nullable = false)
     private String isbn;
 
-    @Column
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column
+    @Column(name = "author_name", nullable = false)
     private String author;
 
     @Column

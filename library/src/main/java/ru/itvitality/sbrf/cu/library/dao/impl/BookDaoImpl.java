@@ -1,11 +1,13 @@
 package ru.itvitality.sbrf.cu.library.dao.impl;
 
+import org.springframework.stereotype.Service;
 import ru.itvitality.sbrf.cu.library.dao.BookDao;
 import ru.itvitality.sbrf.cu.library.entities.Book;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Service
 public class BookDaoImpl extends AbstractDaoImpl implements BookDao {
 
 
@@ -42,5 +44,19 @@ public class BookDaoImpl extends AbstractDaoImpl implements BookDao {
     public List<Book> getBooksOnHolder( Long holderId ) {
         //TODO * implement
         return null;
+    }
+
+    @Override
+    public void merge( Book book ) {
+
+        Book bookCur = em.find( Book.class, book.getId() );
+        if (bookCur != null){
+            em.getTransaction().begin();
+            bookCur.setAuthor( book.getAuthor() );
+            bookCur.setName( book.getName() );
+            bookCur.setIsbn( book.getIsbn() );
+            em.getTransaction().commit();
+        }
+
     }
 }

@@ -14,4 +14,6 @@ public interface BookDao {
     void remove( Long id );
 
     List<Book> getBooksOnHolder(Long holderId);
+
+    void merge( Book book );
 }

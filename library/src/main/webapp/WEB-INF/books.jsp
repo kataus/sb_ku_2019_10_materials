@@ -12,8 +12,11 @@
     <title>Title</title>
 </head>
 <body>
-<c:forEach items="${books}" var="book">
-    ${book.id}
-</c:forEach>
+<h1>Список доступных книг.</h1>
+<div>
+    <c:forEach items="${books}" var="book">
+        <a href="/book/${book.isbn}">${book.author}. ${book.name} </a> <br/>
+    </c:forEach>
+</div>
 </body>
 </html>
