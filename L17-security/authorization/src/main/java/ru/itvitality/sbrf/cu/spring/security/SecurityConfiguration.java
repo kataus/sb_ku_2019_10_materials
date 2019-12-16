@@ -3,6 +3,8 @@ package ru.itvitality.sbrf.cu.spring.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +20,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import java.util.Collection;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -33,11 +36,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.and()
                 .authorizeRequests().antMatchers("/public").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/authenticated", "/success").authenticated()
+                .authorizeRequests().antMatchers("/authenticated", "/success").anonymous()
+
                 .and()
                 .authorizeRequests().antMatchers("/user").hasRole("USER")
+
                 .and()
                 .formLogin()
+                .and()
+                .anonymous()
+                .authorities( "ANONYMOUS" )
                 .and()
                 .logout().logoutUrl("/logout");
     }
