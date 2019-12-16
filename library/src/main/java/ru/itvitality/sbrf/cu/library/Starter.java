@@ -4,11 +4,15 @@ import ru.itvitality.sbrf.cu.library.dao.ClientDao;
 import ru.itvitality.sbrf.cu.library.dao.impl.ClientDaoImpl;
 import ru.itvitality.sbrf.cu.library.entities.Client;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Starter {
     public static void main(String args[]) throws SQLException {
-        ClientDao clientDao = new ClientDaoImpl();
+        Connection connection= DriverManager.getConnection("jdbc:h2:~/library");
+        connection.setAutoCommit(false);
+        ClientDao clientDao = new ClientDaoImpl(connection);
 
         clientDao.createTable();
 

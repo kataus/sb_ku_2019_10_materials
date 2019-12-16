@@ -11,10 +11,15 @@ public class ClientDaoImpl implements ClientDao {
     private final Connection connection;
 
     //TODO - убрать исключение из конструктора (не try-catch)
-    public ClientDaoImpl() throws SQLException {
+    public ClientDaoImpl(Connection connection) {
         //TODO сделать базу хранимой на диске
-        this.connection = DriverManager.getConnection( "jdbc:h2:mem:" );
-        this.connection.setAutoCommit( false );
+        //this.connection = DriverManager.getConnection( "jdbc:h2:mem:" );
+        if(connection!=null) {
+            this.connection = connection;
+            //this.connection.setAutoCommit(false);
+        }
+        else
+            this.connection=null;
     }
 
     @Override
