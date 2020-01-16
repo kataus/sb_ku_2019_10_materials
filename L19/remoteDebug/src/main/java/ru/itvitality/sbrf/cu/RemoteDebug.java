@@ -7,7 +7,8 @@ package ru.itvitality.sbrf.cu;
 
 /*
 cd L08-remoteDebug/target/classes/
-java -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n ru.otus.RemoteDebug
+java -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n -cp original-L19-remoteDebug.jar  ru.itvitality.sbrf.cu.RemoteDebug
+
 */
 public class RemoteDebug {
 
@@ -28,7 +29,7 @@ public class RemoteDebug {
     }
 
     private void incVal()  {
-        value += 10;
+        value += 100;
     }
 
 }

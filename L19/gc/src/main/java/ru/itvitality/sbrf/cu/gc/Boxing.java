@@ -10,8 +10,8 @@ package ru.itvitality.sbrf.cu.gc;
 
 public class Boxing {
   public static void main(String[] args) throws InterruptedException {
-//     calcInteger();
-    calcInt();
+     calcInteger();
+//    calcInt();
     System.out.println("done");
   }
 

@@ -14,7 +14,7 @@ public class MyClassLoaderDemo {
 
     private void start() throws Exception {
         MyClassLoader loader = new MyClassLoader();
-        Class<?> clazz = loader.defineClass("ru.otus.classloader.ClassForLoading");
+        Class<?> clazz = loader.defineClass("ru.itvitality.sbrf.cu.classloader.ClassForLoading");
         System.out.println("methods:");
         Arrays.stream(clazz.getMethods()).forEach(method ->
                 System.out.println(method.getName()));
