@@ -13,10 +13,17 @@ public class CustomThread1 implements Runnable{
     @Override
     public void run() {
        for(byte i=1;i<20;i++){
-           while (index.getThreadNumber()!=thrdNumber){}
            synchronized (index) {
+               try{
+                   if(index.getThreadNumber()!=thrdNumber)
+                       index.wait();
+               }
+               catch (IllegalMonitorStateException | InterruptedException e){
+                   System.out.println(e.getMessage());
+               }
                System.out.print(index.getFuncInterface().forAbs(i));
                index.setThreadNumber(thrdNextOrderNumber);
+               index.notify();
             }
         }
     }
