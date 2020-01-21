@@ -2,15 +2,21 @@ package com.sbrf.cu.java;
 
 public class CustomThread1 implements Runnable{
     private Index index;
-    CustomThread1(Index index){this.index=index;}
+    private final short thrdNumber;
+    private final short thrdNextOrderNumber;
+    CustomThread1(Index index, short thrdNumber, short thrdNextOrderNumber){
+        this.index=index;
+        this.thrdNumber = thrdNumber;
+        this.thrdNextOrderNumber = thrdNextOrderNumber;
+    }
 
     @Override
     public void run() {
        for(byte i=1;i<20;i++){
-           while (index.getThreadNumber()!=1){}
+           while (index.getThreadNumber()!=thrdNumber){}
            synchronized (index) {
                System.out.print(index.getFuncInterface().forAbs(i));
-               index.setThreadNumber((short)2);
+               index.setThreadNumber(thrdNextOrderNumber);
             }
         }
     }
