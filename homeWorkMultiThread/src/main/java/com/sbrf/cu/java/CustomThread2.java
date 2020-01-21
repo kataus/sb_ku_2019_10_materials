@@ -6,19 +6,10 @@ public class CustomThread2 implements Runnable {
 
     @Override
     public void run() {
-        while (index.getIndex() <= 10){
-            while (index.getThreadNumber() != 2) {}
+        for(byte i=1;i<20;i++){
+            while (index.getThreadNumber()!=2){}
             synchronized (index) {
-                System.out.print(index.getIndex() + " ");
-                index.incrementallyAccendIndex();
-                index.setThreadNumber((short)1);
-            }
-        }
-        while (index.getIndex() >= 1){
-            while (index.getThreadNumber() != 2) {}
-            synchronized (index) {
-                System.out.print(index.getIndex() + " ");
-                index.incrementallyDeccendIndex();
+                System.out.print(index.getFuncInterface().forAbs(i));
                 index.setThreadNumber((short)1);
             }
         }
