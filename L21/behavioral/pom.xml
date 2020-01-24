@@ -16,33 +16,40 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
         </dependency>
 
         <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
+            <version>1.0.0-alpha-3</version>
         </dependency>
 
         <!--region Common Annotations (CheckerFramework, JetBrains, SpotBugs) -->
         <dependency>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker</artifactId>
+            <version>2.11.1</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
+            <version>17.0.0</version>
         </dependency>
         <dependency>
             <groupId>net.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-annotations</artifactId>
+            <version>4.0.0-beta4</version>
         </dependency>
         <dependency>
             <groupId>com.google.errorprone</groupId>
             <artifactId>error_prone_annotations</artifactId>
+            <version>2.3.3</version>
         </dependency>
         <!--endregion-->
 
