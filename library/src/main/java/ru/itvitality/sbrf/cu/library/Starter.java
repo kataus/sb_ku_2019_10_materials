@@ -1,8 +1,8 @@
 package ru.itvitality.sbrf.cu.library;
 
 import ru.itvitality.sbrf.cu.library.dao.ClientDao;
-import ru.itvitality.sbrf.cu.library.dao.impl.ClientDaoImpl;
-import ru.itvitality.sbrf.cu.library.entities.Client;
+import ru.itvitality.sbrf.cu.library.dao.impl.*;
+import ru.itvitality.sbrf.cu.library.entities.*;
 
 public class Starter {
     public static void main( String args[] ) {

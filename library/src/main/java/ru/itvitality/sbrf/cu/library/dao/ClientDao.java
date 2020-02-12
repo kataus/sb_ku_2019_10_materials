@@ -1,6 +1,6 @@
 package ru.itvitality.sbrf.cu.library.dao;
 
-import ru.itvitality.sbrf.cu.library.entities.Client;
+import ru.itvitality.sbrf.cu.library.entities.*;
 
 import java.util.List;
 
