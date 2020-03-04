@@ -7,37 +7,43 @@ import java.util.Objects;
 public class Book {
     @Id
     @GeneratedValue
-    private Integer bookId;
-
-    private String bookName;
+    private Integer id;
+    private Integer holder;
+    private String title;
     private String author;
-    public Integer getBookNumber() {return bookId;}
-    public void setBookName(String bookName) {this.bookName = bookName;}
-    public String getBookName(){return this.bookName;}
-    public void setAuthor(String author) {
-        this.author = author;
+    Book(){}
+    Book(String title, String author){
+        this.holder=0;
+        this.author=author;
+        this.title=title;
     }
+    public Integer getBookId() {return id;}
+    public String getBookName(){return this.title;}
     public String getAuthor(){return this.author;}
+    public Integer getHolder(){return this.holder;}
+    public void setHolder(Client client){
+        this.holder=client.getId();
+    }
 
     @Override
     public boolean equals(Object o){
         if (this==o) return true;
         if ( o == null || getClass() != o.getClass() ) return false;
         Book book = (Book)o;
-        return Objects.equals( bookId, book.bookId ) &&
-                Objects.equals( bookName, book.bookName ) &&
+        return Objects.equals( id, book.id ) &&
+                Objects.equals( title, book.title ) &&
                   Objects.equals(author, book.author);
     }
     @Override
     public int hashCode() {
-        return Objects.hash( bookId, bookName, author );
+        return Objects.hash( id, title, author );
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder( "Book" );
-        sb.append( "bookId=" ).append( bookId );
-        sb.append( ", bookName='" ).append( bookName );
+        sb.append( "bookId=" ).append( id );
+        sb.append( ", bookName='" ).append( title);
         sb.append( ", author='" ).append( author ).append( '\'' );
         sb.append( '}' );
         return sb.toString();
