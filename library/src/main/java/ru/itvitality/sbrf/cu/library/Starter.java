@@ -1,14 +1,13 @@
 package ru.itvitality.sbrf.cu.library;
 
-import org.hibernate.SessionFactory;
 import ru.itvitality.sbrf.cu.library.dao.ClientDao;
+import ru.itvitality.sbrf.cu.library.dao.LibrarianDao;
 import ru.itvitality.sbrf.cu.library.dao.impl.*;
-import ru.itvitality.sbrf.cu.library.entities.*;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+import ru.itvitality.sbrf.cu.library.entities.Book;
+import ru.itvitality.sbrf.cu.library.entities.Librarian;
+import ru.itvitality.sbrf.cu.library.entities.impl.BookImpl;
+import ru.itvitality.sbrf.cu.library.entities.impl.ClientImpl;
+import ru.itvitality.sbrf.cu.library.entities.impl.LibrarianImpl;
 
 
 public class Starter {
@@ -27,21 +26,23 @@ public class Starter {
                 .build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();*/
 
-        ClientDao clientDao = new ClientDaoImpl();
-//        clientDao.setSessionFactory(sessionFactory);
+//        ClientDao clientDao = new ClientDaoImpl();
+        LibrarianDao librarianDao = new LibrarianDaoImpl();
 
-        Client client = new Client();
-        client.setName("Nobody");
-        clientDao.insert(client);
+        Librarian librarian = new LibrarianImpl("Larisa Anatolievna");
+        librarianDao.insert(librarian);
 
-        client = new Client();
-        client.setName( "Test1" );
-        clientDao.insert( client );
+        Book book = new BookImpl("Java persistent API and Hibernate","King");
+        librarian.insert(book);
 
-        client = new Client();
-        client.setName( "test2" );
-        clientDao.insert( client );
+        ClientImpl clientImpl = new ClientImpl("Test1");
+//        clientImpl.setName( "Test1" );
+        librarian.insert(clientImpl);
 
-        ((ClientDaoImpl) clientDao).list().forEach(c -> System.out.println( c ) );
+        clientImpl = new ClientImpl("test2");
+//        clientImpl.setName( "test2" );
+        librarian.insert(clientImpl);
+
+//        ((ClientDaoImpl) clientDao).list().forEach(c -> System.out.println( c ) );
     }
 }
