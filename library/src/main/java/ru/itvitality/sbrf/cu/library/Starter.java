@@ -38,6 +38,7 @@ public class Starter {
         ClientImpl clientImpl = new ClientImpl("Test1");
 //        clientImpl.setName( "Test1" );
         librarian.insert(clientImpl);
+        librarian.putBook(book,clientImpl);
 
         clientImpl = new ClientImpl("test2");
 //        clientImpl.setName( "test2" );

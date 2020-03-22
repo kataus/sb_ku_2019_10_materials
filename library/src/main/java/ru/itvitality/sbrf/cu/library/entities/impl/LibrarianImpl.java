@@ -1,6 +1,8 @@
 package ru.itvitality.sbrf.cu.library.entities.impl;
 
+import ru.itvitality.sbrf.cu.library.dao.BookDao;
 import ru.itvitality.sbrf.cu.library.dao.LibrarianInsertableDao;
+import ru.itvitality.sbrf.cu.library.dao.impl.BookDaoImpl;
 import ru.itvitality.sbrf.cu.library.dao.impl.LibrarianInsertDaoImpl;
 import ru.itvitality.sbrf.cu.library.entities.Book;
 import ru.itvitality.sbrf.cu.library.entities.Client;
@@ -34,6 +36,7 @@ public class LibrarianImpl extends HumanImpl implements Librarian {
 
     @Override
     public void putBook(Book book, Client toClient) {
-
+        BookDao bookDao = new BookDaoImpl();
+        bookDao.putBook(book,toClient);
     }
 }

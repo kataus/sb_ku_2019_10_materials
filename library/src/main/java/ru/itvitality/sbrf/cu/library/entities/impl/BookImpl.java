@@ -64,7 +64,7 @@ public class BookImpl implements Book, LibrarianInsertable {
     public void setLibrarian(LibrarianImpl librarian) { this.librarian =  librarian;   }
 
     @Override
-    public void setHolder(HumanImpl human){ this.holder = human;    }
+    public void setHolder(Human human){ this.holder = (HumanImpl) human;    }
 
     @Override
     public LibrarianImpl getLibrarian() {
